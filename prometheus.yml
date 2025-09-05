@@ -1,0 +1,19 @@
+# 全局配置
+global:
+  # 设置抓取指标数据的时间间隔为15秒
+  scrape_interval:     15s
+  # 设置评估规则的时间间隔为15秒
+  evaluation_interval: 15s
+
+# 抓取配置列表
+scrape_configs:
+  # 定义一个名为 'prometheus' 的监控任务
+  - job_name: 'prometheus'
+    # 静态配置目标
+    static_configs:
+      # 监控的目标地址，这里 Prometheus 监控自己
+      - targets: ['prometheus:9090']  # 先让 Prometheus 监控自己
+
+  - job_name: 'node'
+    static_configs:
+        - targets: [ 'node-exporter:9100' ]
