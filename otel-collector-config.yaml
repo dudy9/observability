@@ -1,0 +1,19 @@
+receivers:
+  # 接收 OTLP 协议的指标
+  otlp:
+    protocols:
+      grpc:
+        endpoint: "0.0.0.0:4317"   # 默认 4317
+      http:
+        endpoint: "0.0.0.0:4318"   # 默认 4318
+
+exporters:
+  prometheus:
+    endpoint: "0.0.0.0:8889"   # 暴露 Prometheus metrics 的端口
+    namespace: "otel"
+
+service:
+  pipelines:
+    metrics:
+      receivers: [otlp]
+      exporters: [prometheus]
